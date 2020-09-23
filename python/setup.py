@@ -29,24 +29,24 @@ distutils.dir_util.copy_tree(
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-kaldi_static_libs = ['src/online2/kaldi-online2.a',
-             'src/decoder/kaldi-decoder.a',
-             'src/ivector/kaldi-ivector.a',
-             'src/gmm/kaldi-gmm.a',
-             'src/nnet3/kaldi-nnet3.a',
-             'src/tree/kaldi-tree.a',
-             'src/feat/kaldi-feat.a',
-             'src/lat/kaldi-lat.a',
-             'src/lm/kaldi-lm.a',
-             'src/hmm/kaldi-hmm.a',
-             'src/transform/kaldi-transform.a',
-             'src/cudamatrix/kaldi-cudamatrix.a',
-             'src/matrix/kaldi-matrix.a',
-             'src/fstext/kaldi-fstext.a',
-             'src/util/kaldi-util.a',
-             'src/base/kaldi-base.a',
-             'tools/openfst/lib/libfst.a',
-             'tools/openfst/lib/libfstngram.a']
+kaldi_static_libs = ['dist/lib/libkaldi-online2.a',
+             'dist/lib/libkaldi-decoder.a',
+             'dist/lib/libkaldi-ivector.a',
+             'dist/lib/libkaldi-gmm.a',
+             'dist/lib/libkaldi-nnet3.a',
+             'dist/lib/libkaldi-tree.a',
+             'dist/lib/libkaldi-feat.a',
+             'dist/lib/libkaldi-lat.a',
+             'dist/lib/libkaldi-lm.a',
+             'dist/lib/libkaldi-hmm.a',
+             'dist/lib/libkaldi-transform.a',
+             'dist/lib/libkaldi-cudamatrix.a',
+             'dist/lib/libkaldi-matrix.a',
+             'dist/lib/libkaldi-fstext.a',
+             'dist/lib/libkaldi-util.a',
+             'dist/lib/libkaldi-base.a',
+             'dist/lib/libfst.a',
+             'dist/lib/libfstngram.a']
 kaldi_link_args = ['-s']
 kaldi_libraries = []
 
@@ -63,7 +63,7 @@ sources = ['kaldi_recognizer.cc', 'model.cc', 'spk_model.cc', 'vosk_api.cc', 'vo
 
 vosk_ext = Extension('vosk._vosk',
                     define_macros = [('FST_NO_DYNAMIC_LINKING', '1')],
-                    include_dirs = [kaldi_root + '/src', kaldi_root + '/tools/openfst/include', 'vosk'],
+                    include_dirs = [kaldi_root + '/dist/include/kaldi', kaldi_root + '/dist/include/openfst', 'vosk'],
                     swig_opts=['-outdir', 'vosk', '-c++'],
                     libraries = kaldi_libraries,
                     extra_objects = [kaldi_root + '/' + x for x in kaldi_static_libs],
